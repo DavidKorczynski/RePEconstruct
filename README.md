@@ -2,9 +2,13 @@
 
 RePEconstruct is a tool for automatically unpacking binaries and rebuild the binaries in a manner well-suited for further analysis, specially focused on further manual analysis in IDA pro.
 
-**The main idea behind RePEconstruct is to use dynamic analysis for unpacking self-modifying code and also using information from the execution to feed into a disassembler, which will rebuild the import table and also locate instructions that branch to dynamically loaded code (including obfuscated calls, as shown in Example 1).** Our disassembler can also produce IDA python scripts for each memory dump it disassembles, which will than add cross-references into the IDA db. The other approach is to have our disassembler try and re-locate instructions and effectively the rebuild binary can be applied to other interactive disassemblers and still leverage results from RePEconstruct. 
+**The main idea behind RePEconstruct is to use dynamic analysis for unpacking self-modifying code and also use information from the execution to feed into a disassembler. The disassembler will then automatically rebuild the import table and also locate instructions, that branch to dynamically loaded code, including obfuscated calls as shown in Example 1.** Our disassembler can also produce IDA python scripts for each memory dump it disassembles, which will than add cross-references into the IDA db. The other approach is to have our disassembler try and re-locate instructions and effectively the rebuild binary can be applied to other interactive disassemblers and still leverage results from RePEconstruct. 
 
 ## First example: 
+** To run this example you will need to have Capstone *next* branch installed.** Please get this [here](https://github.com/aquynh/capstone/wiki/Next-branch) and don't forget to update your bindings if you have used the main branch of Capstone!
+
+** To run this example you will also need PEfile.** Please get this [here](https://github.com/erocarrera/pefile).
+
 
 In this example we use a dump from the dynamic tracer to show the use of our the static component which will rebuild the import table and also locate any obfuscated calls in the dump. 
 
@@ -32,18 +36,18 @@ Simply run the command from the main DynamoRIO folder:
 bin32\drrun.exe -max_bb_instrs 128 -c unpacker.dll –Petite_packed.exe
 ```
 
-Note that you must have a folder namer ”Refactor_output” in the folder of which you are executing this command. Also note that unpacker.dll is the DLL from Tracer/Pre_compiled_dll/unpacker.dll and the ”Petite_packed.exe” is the binary given in Tracer/Example_of_packed_file/Petite_packed.exe
+Note that you must have a folder namer *Refactor_output* in the folder of which you are executing this command. Also note that *unpacker.dll* is the DLL from *Tracer/Pre_compiled_dll/unpacker.dll* and the *Petite_packed.exe* is the binary given in *Tracer/Example_of_packed_file/Petite_packed.exe*
 
-This experiment was done on a Windows 32-bit SP3 VM, with DynamoRIO 6.1.1-3
+**This experiment was done on a Windows 32-bit SP3 VM, with DynamoRIO 6.1.1-3**
 
-The result from the unpacker is generated in the Refactor_output folder. Here you will find several files: 
-entire_unpacked-x means a memory dump of the ”x”'th layer of self-modifying code that has been prepared for IAT rebuilding. Specifically, this means we have constructed a new section where we will build the new IAT, as done in the example just above.
+The result from the unpacker is generated in the *Refactor_output folder.* Here you will find several files: 
+*entire_unpacked-x* means a memory dump of the *x*'th layer of self-modifying code that has been prepared for IAT rebuilding. Specifically, this means we have constructed a new section where we will build the new IAT, as done in the example just above.
 
-entire_unpacked_clean-x are files that are clean memory dumps of each layer of self-modifying code. These are not used by the static disassembler, but are provided in case needed.
+*entire_unpacked_clean-x* are files that are clean memory dumps of each layer of self-modifying code. These are not used by the static disassembler, but are provided in case needed.
 
-exports_wave-x are files that contain addresses of dynamically loaded modules and the functions they export. This is used by the static rebuilder to map which instructions branch to dynamically loaded functions.
+*exports_wave-x* are files that contain addresses of dynamically loaded modules and the functions they export. This is used by the static rebuilder to map which instructions branch to dynamically loaded functions.
 
-The files ”trace_output” amd ”wave_entrypoints” are also used by the static rebuilder. The main.py file from the example above shows in a simple manner how they are to be used!
+The files *trace_output* amd *wave_entrypoints* are also used by the static rebuilder. The main.py file from the example above shows in a simple manner how they are to be used!
 
 
 The tool is used in the 2016 MALWARE paper "RePEconstruct: reconstructing packed binaries with self-modifying code and import table destruction". 
