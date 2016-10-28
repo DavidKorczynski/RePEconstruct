@@ -17,7 +17,7 @@ In the binary, you will see at address 0x40f031 an obfuscated call that was used
 Simply execute main.py and you will see the result! The result is composed of two files: reconstructedDirect and ida_script.py The reconstructedDirect is the binary file with instructions relocated where possible, and the ida_script.py is an IDA python script which setup cross-references and also comments.
 
 Before picture: 
-![alt tag](https://imageshack.com/i/plnAOlGQp)
+![alt tag](http://imageshack.com/a/img921/6003/nAOlGQ.png)
 
 After picture (loaded reconstructedDirect into IDA and also run the ida_script.py in IDA):
 ![alt tag](http://imageshack.com/a/img921/7296/TjrV2k.png)
