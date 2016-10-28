@@ -52,4 +52,4 @@ The result from the unpacker is generated in the *Refactor_output folder.* Here 
 The files *trace_output* amd *wave_entrypoints* are also used by the static rebuilder. The main.py file from the example above shows in a simple manner how they are to be used!
 
 ## Publications
-The tool is described in the 2016 MALWARE paper "RePEconstruct: reconstructing packed binaries with self-modifying code and import table destruction". 
+The tool is described in the 2016 MALWARE paper *RePEconstruct: reconstructing packed binaries with self-modifying code and import table destruction* by David Korczynski. 
