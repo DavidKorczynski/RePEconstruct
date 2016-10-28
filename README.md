@@ -4,7 +4,7 @@ RePEconstruct is a tool for automatically unpacking binaries and rebuild the bin
 
 **The main idea behind RePEconstruct is to use dynamic analysis for unpacking self-modifying code and also use information from the execution to feed into a disassembler. The disassembler will then automatically rebuild the import table and also locate instructions, that branch to dynamically loaded code, including obfuscated calls as shown in Example 1.** Our disassembler can also produce IDA python scripts for each memory dump it disassembles, which will than add cross-references into the IDA db. The other approach is to have our disassembler try and re-locate instructions and effectively the rebuild binary can be applied to other interactive disassemblers and still leverage results from RePEconstruct. 
 
-## First example: 
+## First example: rebuild IAT and locate branches to dynamically loaded code
 **To run this example you will need to have Capstone *next* branch installed.** Please get this [here](https://github.com/aquynh/capstone/wiki/Next-branch) and don't forget to update your bindings if you have used the main branch of Capstone!
 
 **To run this example you will also need PEfile.** Please get this [here](https://github.com/erocarrera/pefile).
@@ -28,7 +28,7 @@ After picture (loaded reconstructedDirect into IDA and also run the ida_script.p
 
 The main.py should be easy to follow and see what is needed to run any type of binary through the disassembler! 
 
-## Second example:
+## Second example: automatically unpacking a packed application
 **To run this example you will need DynamoRIO 6.1.1-3.** You can get this [here](https://github.com/DynamoRIO/dynamorio/wiki/Downloads)
 
 In this example we will use the dynamic analysis component to unpack a simple application that was packed with the Petite packer. 
@@ -51,5 +51,5 @@ The result from the unpacker is generated in the *Refactor_output folder.* Here 
 
 The files *trace_output* amd *wave_entrypoints* are also used by the static rebuilder. The main.py file from the example above shows in a simple manner how they are to be used!
 
-
-The tool is used in the 2016 MALWARE paper "RePEconstruct: reconstructing packed binaries with self-modifying code and import table destruction". 
+## Publications
+The tool is described in the 2016 MALWARE paper "RePEconstruct: reconstructing packed binaries with self-modifying code and import table destruction". 
